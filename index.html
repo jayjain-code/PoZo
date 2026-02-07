@@ -22,7 +22,6 @@
             font-family: 'Pacifico', cursive;
         }
 
-        /* Floating Hearts Animation Background */
         .bg-hearts {
             position: fixed;
             top: 0;
@@ -46,7 +45,6 @@
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* Bounce Animation for the Yippee Character */
         @keyframes bounce-excited {
             0%, 100% { transform: translateY(0) scale(1); }
             25% { transform: translateY(-20px) scale(1.1) rotate(-5deg); }
@@ -58,7 +56,6 @@
             animation: bounce-excited 0.8s infinite ease-in-out;
         }
 
-        /* Modal Animation */
         .modal-enter {
             animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -72,7 +69,6 @@
             transform: scale(0.95);
         }
         
-        /* Music Control Styles */
         .music-control {
             position: fixed;
             top: 20px;
@@ -83,34 +79,29 @@
 </head>
 <body class="flex items-center justify-center min-h-screen relative selection:bg-pink-200">
 
-    <!-- Background Hearts Container -->
     <div id="bg-hearts-container" class="bg-hearts"></div>
 
-    <!-- Audio Element -->
-    <!-- IMPORTANT: When uploading to GitHub, rename your MP3 file to 'music.mp3' -->
-    <audio id="bg-music" loop>
+    <!-- Audio Element with Autoplay -->
+    <audio id="bg-music" loop preload="auto" autoplay>
         <source src="music.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
     <!-- Music Toggle Button -->
     <button id="music-btn" class="music-control bg-white/80 backdrop-blur-md p-3 rounded-full shadow-lg border-2 border-pink-300 text-pink-500 hover:scale-110 transition-transform btn-press" aria-label="Toggle Music">
-        <!-- Music Off Icon (Default) -->
-        <svg id="music-off-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path></svg>
-        <!-- Music On Icon (Hidden) -->
-        <svg id="music-on-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
+        <div id="icon-container">
+            <!-- Music Off Icon (Default state until played) -->
+            <svg id="music-off-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path></svg>
+        </div>
     </button>
 
-    <!-- Main Card -->
     <div id="main-card" class="relative z-10 w-full max-w-md p-6 mx-4 transition-all duration-500 ease-in-out transform">
         <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border-4 border-pink-200 p-8 text-center relative overflow-hidden">
             
-            <!-- Decorative Header Heart -->
             <div class="absolute -top-6 -left-6 text-pink-300 transform -rotate-12">
                 <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
             </div>
 
-            <!-- Initial State: The Question -->
             <div id="question-section" class="space-y-6">
                 <div class="mb-4">
                     <span class="text-6xl animate-pulse">💌</span>
@@ -138,33 +129,23 @@
                 </div>
             </div>
 
-            <!-- Success State: Yippee Animation (Hidden initially) -->
             <div id="success-section" class="hidden flex-col items-center justify-center space-y-6 py-4">
                 <h1 class="text-4xl font-cute text-pink-600 animate-bounce-excited">YIPPEE!!! 🎉</h1>
                 
-                <!-- Cute Bear/Character SVG -->
                 <div class="relative w-48 h-48 animate-bounce-excited">
-                    <!-- Simple Cute Bear SVG -->
                     <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-lg">
-                        <!-- Body -->
-                        <circle cx="100" cy="110" r="60" fill="#a78bfa" /> <!-- Lavender Bear -->
-                        <!-- Ears -->
+                        <circle cx="100" cy="110" r="60" fill="#a78bfa" />
                         <circle cx="60" cy="70" r="20" fill="#a78bfa" />
                         <circle cx="140" cy="70" r="20" fill="#a78bfa" />
                         <circle cx="60" cy="70" r="12" fill="#8b5cf6" />
                         <circle cx="140" cy="70" r="12" fill="#8b5cf6" />
-                        <!-- Eyes -->
                         <circle cx="80" cy="100" r="6" fill="#1f2937" />
                         <circle cx="120" cy="100" r="6" fill="#1f2937" />
-                        <!-- Cheeks -->
                         <circle cx="70" cy="115" r="8" fill="#fda4af" opacity="0.6" />
                         <circle cx="130" cy="115" r="8" fill="#fda4af" opacity="0.6" />
-                        <!-- Snout -->
                         <ellipse cx="100" cy="115" rx="14" ry="10" fill="white" />
                         <ellipse cx="100" cy="112" rx="6" ry="4" fill="#1f2937" />
-                        <!-- Happy Mouth -->
                         <path d="M 90 120 Q 100 130 110 120" stroke="#1f2937" stroke-width="2" fill="none" />
-                        <!-- Arms Up -->
                         <path d="M 50 110 Q 30 70 50 50" stroke="#a78bfa" stroke-width="12" stroke-linecap="round" fill="none" />
                         <path d="M 150 110 Q 170 70 150 50" stroke="#a78bfa" stroke-width="12" stroke-linecap="round" fill="none" />
                     </svg>
@@ -179,7 +160,6 @@
         </div>
     </div>
 
-    <!-- Custom Modal/Alert for "No" -->
     <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-black/20 backdrop-blur-sm" id="modal-backdrop"></div>
         <div class="bg-white rounded-2xl p-6 shadow-2xl max-w-sm w-full relative z-10 modal-enter text-center border-4 border-pink-300">
@@ -195,50 +175,92 @@
     </div>
 
     <script>
-        // --- Helper Function: Haptics ---
-        // Checks if vibration is supported and triggers it
         function triggerHaptic(pattern) {
-            if (navigator.vibrate) {
-                navigator.vibrate(pattern);
-            }
+            if (navigator.vibrate) navigator.vibrate(pattern);
         }
 
-        // --- Music Control ---
         const musicBtn = document.getElementById('music-btn');
         const bgMusic = document.getElementById('bg-music');
-        const musicOffIcon = document.getElementById('music-off-icon');
-        const musicOnIcon = document.getElementById('music-on-icon');
+        const iconContainer = document.getElementById('icon-container');
+        
+        // Icons
+        const musicOffIcon = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path></svg>`;
+        const musicOnIcon = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>`;
+
         let isMusicPlaying = false;
 
-        // The code now looks for a file named "music.mp3" in the same folder.
-        // Make sure you rename your AP Dhillon song file to "music.mp3"!
         bgMusic.src = "music.mp3"; 
         bgMusic.volume = 0.5;
 
-        musicBtn.addEventListener('click', () => {
-            triggerHaptic(20); // Light tap feedback
-            if (isMusicPlaying) {
-                bgMusic.pause();
-                musicOffIcon.classList.remove('hidden');
-                musicOnIcon.classList.add('hidden');
-                musicBtn.classList.remove('bg-pink-100');
-                musicBtn.classList.add('bg-white/80');
-            } else {
-                bgMusic.play().catch(e => console.log("Interaction required for playback"));
-                musicOffIcon.classList.add('hidden');
-                musicOnIcon.classList.remove('hidden');
+        function updateMusicIcon(playing) {
+            if (playing) {
+                iconContainer.innerHTML = musicOnIcon;
                 musicBtn.classList.add('bg-pink-100');
                 musicBtn.classList.remove('bg-white/80');
+            } else {
+                iconContainer.innerHTML = musicOffIcon;
+                musicBtn.classList.remove('bg-pink-100');
+                musicBtn.classList.add('bg-white/80');
             }
-            isMusicPlaying = !isMusicPlaying;
+        }
+
+        // AUTO-PLAY LOGIC
+        // Browsers often block autoplay. This code tries to play, and if blocked,
+        // waits for the FIRST interaction to start the music.
+        window.addEventListener('load', () => {
+            bgMusic.play().then(() => {
+                isMusicPlaying = true;
+                updateMusicIcon(true);
+            }).catch(error => {
+                console.log("Autoplay prevented. Waiting for interaction.");
+                // Add a one-time listener to the whole document to start music on first click
+                const playOnInteraction = () => {
+                    bgMusic.play();
+                    isMusicPlaying = true;
+                    updateMusicIcon(true);
+                    // Remove listener so it doesn't fire again
+                    document.removeEventListener('click', playOnInteraction);
+                    document.removeEventListener('touchstart', playOnInteraction);
+                };
+                
+                document.addEventListener('click', playOnInteraction);
+                document.addEventListener('touchstart', playOnInteraction);
+            });
         });
 
+        // Error handling if file is missing
+        bgMusic.addEventListener('error', function(e) {
+            console.error("Music error:", e);
+            if (isMusicPlaying) {
+                alert("⚠️ Music File Not Found!\n\nPlease make sure:\n1. The song file is named 'music.mp3' (lowercase).\n2. It is in the EXACT same folder as this HTML file.");
+                isMusicPlaying = false;
+                updateMusicIcon(false);
+            }
+        }, true);
 
-        // --- Background Animation ---
+        // Manual Toggle Button
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering the global interaction listener again
+            triggerHaptic(20);
+            
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                isMusicPlaying = false;
+                updateMusicIcon(false);
+            } else {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    updateMusicIcon(true);
+                }).catch(error => {
+                    alert("Click the page once to enable audio!");
+                });
+            }
+        });
+
+        // Background Animation
         function createHearts() {
             const container = document.getElementById('bg-hearts-container');
             const heartCount = 20;
-            
             for(let i = 0; i < heartCount; i++) {
                 const heart = document.createElement('div');
                 heart.classList.add('heart-bg');
@@ -250,10 +272,8 @@
                 container.appendChild(heart);
             }
         }
-
         createHearts();
 
-        // --- Main Logic ---
         const yesBtn = document.getElementById('yes-btn');
         const noBtn = document.getElementById('no-btn');
         const mainCard = document.getElementById('main-card');
@@ -263,39 +283,25 @@
         const closeModal = document.getElementById('close-modal');
         const modalBackdrop = document.getElementById('modal-backdrop');
 
-        // Logic for "No" Button
         noBtn.addEventListener('click', () => {
-            triggerHaptic(50); // Short bump for "No"
+            triggerHaptic(50);
             modal.classList.remove('hidden');
         });
 
         const hideModal = () => {
-            triggerHaptic(20); // Light tap for closing
+            triggerHaptic(20);
             modal.classList.add('hidden');
         };
 
         closeModal.addEventListener('click', hideModal);
         modalBackdrop.addEventListener('click', hideModal);
 
-        // Logic for "Yes" Button
         yesBtn.addEventListener('click', () => {
-            // Haptic: Happy celebration pattern (pulse-pause-pulse-pause-long)
             triggerHaptic([100, 50, 100, 50, 400]);
 
-            // Try to play music if not already playing (user interaction occurred)
-            if (!isMusicPlaying) {
-                bgMusic.play().then(() => {
-                    isMusicPlaying = true;
-                    musicOffIcon.classList.add('hidden');
-                    musicOnIcon.classList.remove('hidden');
-                }).catch(() => {});
-            }
-
-            // 1. Confetti Explosion
             const duration = 3000;
             const end = Date.now() + duration;
 
-            // Trigger confetti
             const frame = () => {
                 confetti({
                     particleCount: 5,
@@ -318,7 +324,6 @@
             };
             frame();
 
-            // 2. Big Explosion once
             confetti({
                 particleCount: 150,
                 spread: 70,
@@ -326,12 +331,10 @@
                 colors: ['#ff69b4', '#ff1493', '#ffb6c1']
             });
 
-            // 3. Switch UI
             questionSection.style.display = 'none';
             successSection.classList.remove('hidden');
             successSection.classList.add('flex');
             
-            // Add a little shake/bounce to the card
             mainCard.classList.add('animate-bounce-excited');
             setTimeout(() => {
                 mainCard.classList.remove('animate-bounce-excited');
