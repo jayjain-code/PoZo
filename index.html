@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Po ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #ffe4e6;
+            overflow-x: hidden;
+        }
+        
+        .font-cute {
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .font-hand {
+            font-family: 'Pacifico', cursive;
+        }
+
+        /* Floating Hearts Animation Background */
+        .bg-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .heart-bg {
+            position: absolute;
+            color: rgba(255, 182, 193, 0.4);
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Bounce Animation for the Yippee Character */
+        @keyframes bounce-excited {
+            0%, 100% { transform: translateY(0) scale(1); }
+            25% { transform: translateY(-20px) scale(1.1) rotate(-5deg); }
+            50% { transform: translateY(0) scale(0.95) rotate(0deg); }
+            75% { transform: translateY(-15px) scale(1.05) rotate(5deg); }
+        }
+
+        .animate-bounce-excited {
+            animation: bounce-excited 0.8s infinite ease-in-out;
+        }
+
+        /* Modal Animation */
+        .modal-enter {
+            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .btn-press:active {
+            transform: scale(0.95);
+        }
+        
+        /* Music Control Styles */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen relative selection:bg-pink-200">
+
+    <!-- Background Hearts Container -->
+    <div id="bg-hearts-container" class="bg-hearts"></div>
+
+    <!-- Audio Element -->
+    <!-- IMPORTANT: When uploading to GitHub, rename your MP3 file to 'music.mp3' -->
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Music Toggle Button -->
+    <button id="music-btn" class="music-control bg-white/80 backdrop-blur-md p-3 rounded-full shadow-lg border-2 border-pink-300 text-pink-500 hover:scale-110 transition-transform btn-press" aria-label="Toggle Music">
+        <!-- Music Off Icon (Default) -->
+        <svg id="music-off-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path></svg>
+        <!-- Music On Icon (Hidden) -->
+        <svg id="music-on-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
+    </button>
+
+    <!-- Main Card -->
+    <div id="main-card" class="relative z-10 w-full max-w-md p-6 mx-4 transition-all duration-500 ease-in-out transform">
+        <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border-4 border-pink-200 p-8 text-center relative overflow-hidden">
+            
+            <!-- Decorative Header Heart -->
+            <div class="absolute -top-6 -left-6 text-pink-300 transform -rotate-12">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+
+            <!-- Initial State: The Question -->
+            <div id="question-section" class="space-y-6">
+                <div class="mb-4">
+                    <span class="text-6xl animate-pulse">💌</span>
+                </div>
+                
+                <h1 class="text-3xl font-cute text-pink-600 mb-2">Dearest Po,</h1>
+                
+                <p class="text-gray-700 text-lg leading-relaxed font-medium">
+                    You make my world brighter and my heart happier every single day. I love you so incredibly much!
+                </p>
+
+                <p class="text-2xl font-hand text-pink-500 font-bold py-4">
+                    Will you be my Valentine?
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2">
+                    <button id="yes-btn" class="btn-press w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold rounded-full shadow-lg hover:shadow-pink-300/50 hover:-translate-y-1 transition-all duration-200 text-xl flex items-center justify-center gap-2 group">
+                        <span>Yes!</span>
+                        <svg class="w-5 h-5 group-hover:animate-bounce" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+                    </button>
+                    
+                    <button id="no-btn" class="btn-press w-full sm:w-auto px-8 py-3 bg-white border-2 border-pink-200 text-pink-400 font-bold rounded-full shadow-sm hover:bg-pink-50 transition-all duration-200 text-lg">
+                        No
+                    </button>
+                </div>
+            </div>
+
+            <!-- Success State: Yippee Animation (Hidden initially) -->
+            <div id="success-section" class="hidden flex-col items-center justify-center space-y-6 py-4">
+                <h1 class="text-4xl font-cute text-pink-600 animate-bounce-excited">YIPPEE!!! 🎉</h1>
+                
+                <!-- Cute Bear/Character SVG -->
+                <div class="relative w-48 h-48 animate-bounce-excited">
+                    <!-- Simple Cute Bear SVG -->
+                    <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-lg">
+                        <!-- Body -->
+                        <circle cx="100" cy="110" r="60" fill="#a78bfa" /> <!-- Lavender Bear -->
+                        <!-- Ears -->
+                        <circle cx="60" cy="70" r="20" fill="#a78bfa" />
+                        <circle cx="140" cy="70" r="20" fill="#a78bfa" />
+                        <circle cx="60" cy="70" r="12" fill="#8b5cf6" />
+                        <circle cx="140" cy="70" r="12" fill="#8b5cf6" />
+                        <!-- Eyes -->
+                        <circle cx="80" cy="100" r="6" fill="#1f2937" />
+                        <circle cx="120" cy="100" r="6" fill="#1f2937" />
+                        <!-- Cheeks -->
+                        <circle cx="70" cy="115" r="8" fill="#fda4af" opacity="0.6" />
+                        <circle cx="130" cy="115" r="8" fill="#fda4af" opacity="0.6" />
+                        <!-- Snout -->
+                        <ellipse cx="100" cy="115" rx="14" ry="10" fill="white" />
+                        <ellipse cx="100" cy="112" rx="6" ry="4" fill="#1f2937" />
+                        <!-- Happy Mouth -->
+                        <path d="M 90 120 Q 100 130 110 120" stroke="#1f2937" stroke-width="2" fill="none" />
+                        <!-- Arms Up -->
+                        <path d="M 50 110 Q 30 70 50 50" stroke="#a78bfa" stroke-width="12" stroke-linecap="round" fill="none" />
+                        <path d="M 150 110 Q 170 70 150 50" stroke="#a78bfa" stroke-width="12" stroke-linecap="round" fill="none" />
+                    </svg>
+                </div>
+
+                <div class="text-xl text-gray-700 font-medium">
+                    See you on Valentine's Day! <br> 
+                    <span class="text-sm text-pink-400">(I knew you'd say yes ❤️)</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Custom Modal/Alert for "No" -->
+    <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
+        <div class="absolute inset-0 bg-black/20 backdrop-blur-sm" id="modal-backdrop"></div>
+        <div class="bg-white rounded-2xl p-6 shadow-2xl max-w-sm w-full relative z-10 modal-enter text-center border-4 border-pink-300">
+            <div class="text-5xl mb-4">🤨</div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Excuse me?</h3>
+            <p class="text-gray-600 mb-6">
+                Error 404: The "No" option is currently out of stock. You love me too much for that! Try the other button. 😉
+            </p>
+            <button id="close-modal" class="w-full py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-xl font-bold transition-colors">
+                Okay, fine! 🙄
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- Helper Function: Haptics ---
+        // Checks if vibration is supported and triggers it
+        function triggerHaptic(pattern) {
+            if (navigator.vibrate) {
+                navigator.vibrate(pattern);
+            }
+        }
+
+        // --- Music Control ---
+        const musicBtn = document.getElementById('music-btn');
+        const bgMusic = document.getElementById('bg-music');
+        const musicOffIcon = document.getElementById('music-off-icon');
+        const musicOnIcon = document.getElementById('music-on-icon');
+        let isMusicPlaying = false;
+
+        // The code now looks for a file named "music.mp3" in the same folder.
+        // Make sure you rename your AP Dhillon song file to "music.mp3"!
+        bgMusic.src = "music.mp3"; 
+        bgMusic.volume = 0.5;
+
+        musicBtn.addEventListener('click', () => {
+            triggerHaptic(20); // Light tap feedback
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                musicOffIcon.classList.remove('hidden');
+                musicOnIcon.classList.add('hidden');
+                musicBtn.classList.remove('bg-pink-100');
+                musicBtn.classList.add('bg-white/80');
+            } else {
+                bgMusic.play().catch(e => console.log("Interaction required for playback"));
+                musicOffIcon.classList.add('hidden');
+                musicOnIcon.classList.remove('hidden');
+                musicBtn.classList.add('bg-pink-100');
+                musicBtn.classList.remove('bg-white/80');
+            }
+            isMusicPlaying = !isMusicPlaying;
+        });
+
+
+        // --- Background Animation ---
+        function createHearts() {
+            const container = document.getElementById('bg-hearts-container');
+            const heartCount = 20;
+            
+            for(let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-bg');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                heart.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        createHearts();
+
+        // --- Main Logic ---
+        const yesBtn = document.getElementById('yes-btn');
+        const noBtn = document.getElementById('no-btn');
+        const mainCard = document.getElementById('main-card');
+        const questionSection = document.getElementById('question-section');
+        const successSection = document.getElementById('success-section');
+        const modal = document.getElementById('custom-modal');
+        const closeModal = document.getElementById('close-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+
+        // Logic for "No" Button
+        noBtn.addEventListener('click', () => {
+            triggerHaptic(50); // Short bump for "No"
+            modal.classList.remove('hidden');
+        });
+
+        const hideModal = () => {
+            triggerHaptic(20); // Light tap for closing
+            modal.classList.add('hidden');
+        };
+
+        closeModal.addEventListener('click', hideModal);
+        modalBackdrop.addEventListener('click', hideModal);
+
+        // Logic for "Yes" Button
+        yesBtn.addEventListener('click', () => {
+            // Haptic: Happy celebration pattern (pulse-pause-pulse-pause-long)
+            triggerHaptic([100, 50, 100, 50, 400]);
+
+            // Try to play music if not already playing (user interaction occurred)
+            if (!isMusicPlaying) {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicOffIcon.classList.add('hidden');
+                    musicOnIcon.classList.remove('hidden');
+                }).catch(() => {});
+            }
+
+            // 1. Confetti Explosion
+            const duration = 3000;
+            const end = Date.now() + duration;
+
+            // Trigger confetti
+            const frame = () => {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ff69b4', '#ff1493', '#ffb6c1']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ff69b4', '#ff1493', '#ffb6c1']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            };
+            frame();
+
+            // 2. Big Explosion once
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff69b4', '#ff1493', '#ffb6c1']
+            });
+
+            // 3. Switch UI
+            questionSection.style.display = 'none';
+            successSection.classList.remove('hidden');
+            successSection.classList.add('flex');
+            
+            // Add a little shake/bounce to the card
+            mainCard.classList.add('animate-bounce-excited');
+            setTimeout(() => {
+                mainCard.classList.remove('animate-bounce-excited');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
