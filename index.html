@@ -160,12 +160,13 @@
         </div>
     </div>
 
+    <!-- Custom Modal/Alert for "No" -->
     <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-black/20 backdrop-blur-sm" id="modal-backdrop"></div>
         <div class="bg-white rounded-2xl p-6 shadow-2xl max-w-sm w-full relative z-10 modal-enter text-center border-4 border-pink-300">
-            <div class="text-5xl mb-4">🤨</div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Excuse me?</h3>
-            <p class="text-gray-600 mb-6">
+            <div id="modal-emoji" class="text-5xl mb-4">🤨</div>
+            <h3 id="modal-title" class="text-xl font-bold text-gray-800 mb-2">Excuse me?</h3>
+            <p id="modal-text" class="text-gray-600 mb-6">
                 Error 404: The "No" option is currently out of stock. You love me too much for that! Try the other button. 😉
             </p>
             <button id="close-modal" class="w-full py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-xl font-bold transition-colors">
@@ -283,9 +284,54 @@
         const closeModal = document.getElementById('close-modal');
         const modalBackdrop = document.getElementById('modal-backdrop');
 
+        // Modal Content Elements
+        const modalEmoji = document.getElementById('modal-emoji');
+        const modalTitle = document.getElementById('modal-title');
+        const modalText = document.getElementById('modal-text');
+
+        let noClickCount = 0;
+        const noMessages = [
+            {
+                emoji: "🤨",
+                title: "Excuse me?",
+                text: "Error 404: The \"No\" option is currently out of stock. You love me too much for that! Try the other button. 😉"
+            },
+            {
+                emoji: "💔",
+                title: "Wait, what?",
+                text: "Are you sure? My heart might actually break! Check again! (Hint: It's the colorful button)"
+            },
+            {
+                emoji: "🙈",
+                title: "I didn't see that",
+                text: "I'm going to pretend I didn't see you click that. Let's try this again... Click Yes! ✨"
+            },
+            {
+                emoji: "⚠️",
+                title: "Warning!",
+                text: "Saying 'No' causes extreme sadness. Proceed with caution (or just say Yes)!"
+            },
+            {
+                emoji: "😤",
+                title: "Seriously?",
+                text: "The 'No' button is purely decorative. You actually have no choice. Love you! ❤️"
+            }
+        ];
+
+        // Logic for "No" Button
         noBtn.addEventListener('click', () => {
             triggerHaptic(50);
+            
+            // Get current message
+            const currentMsg = noMessages[noClickCount % noMessages.length];
+            
+            // Update modal content
+            modalEmoji.innerText = currentMsg.emoji;
+            modalTitle.innerText = currentMsg.title;
+            modalText.innerText = currentMsg.text;
+            
             modal.classList.remove('hidden');
+            noClickCount++;
         });
 
         const hideModal = () => {
